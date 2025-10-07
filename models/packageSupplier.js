@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const packageSupplierSchema = new mongoose.Schema(
   {
@@ -17,5 +17,5 @@ const packageSupplierSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+module.exports = mongoose.model('PackageSupplier', packageSupplierSchema);
 
-export default mongoose.model("PackageSupplier", packageSupplierSchema);

@@ -14,7 +14,7 @@ const validateSupplierFields = (data) => {
 };
 
 // Get all package suppliers
-export const getAllSuppliers = async (req, res) => {
+exports.getAllSuppliers = async (req, res) => {
   try {
     const suppliers = await PackageSupplier.find().sort({ createdAt: -1 });
     res.json({ success: true, data: suppliers });
@@ -25,7 +25,7 @@ export const getAllSuppliers = async (req, res) => {
 };
 
 // Add new supplier
-export const addSupplier = async (req, res) => {
+exports.addSupplier = async (req, res) => {
   try {
     const validationError = validateSupplierFields(req.body);
     if (validationError) return res.status(400).json({ success: false, message: validationError });
@@ -40,7 +40,7 @@ export const addSupplier = async (req, res) => {
 };
 
 // Update supplier
-export const updateSupplier = async (req, res) => {
+exports.updateSupplier = async (req, res) => {
   try {
     const validationError = validateSupplierFields(req.body);
     if (validationError) return res.status(400).json({ success: false, message: validationError });
@@ -59,7 +59,7 @@ export const updateSupplier = async (req, res) => {
 
 
 // Delete supplier
-export const deleteSupplier = async (req, res) => {
+exports.deleteSupplier = async (req, res) => {
   try {
     const deletedSupplier = await PackageSupplier.findByIdAndDelete(req.params.id);
     if (!deletedSupplier)
