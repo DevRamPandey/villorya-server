@@ -26,20 +26,25 @@ const updateCMSContent = async (req, res) => {
   try {
     const { brandStory, termsConditions, privacyPolicy, faqs, refundPolicy } = req.body;
 
-    // Validate fields
-    if (!brandStory || !termsConditions || !privacyPolicy || !faqs || !refundPolicy) {
-      return res.status(400).json({ success: false, message: 'All fields are required' });
+    // Check if at least one field is provided
+    if (!brandStory && !termsConditions && !privacyPolicy && !faqs && !refundPolicy) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'At least one field is required to update CMS content' 
+      });
     }
 
     let cms = await CMS.findOne();
     if (!cms) {
+      // Create new CMS document with only the provided fields
       cms = new CMS(req.body);
     } else {
-      cms.brandStory = brandStory;
-      cms.termsConditions = termsConditions;
-      cms.privacyPolicy = privacyPolicy;
-      cms.faqs = faqs;
-      cms.refundPolicy = refundPolicy;
+      // Update only the fields that are provided
+      if (brandStory !== undefined) cms.brandStory = brandStory;
+      if (termsConditions !== undefined) cms.termsConditions = termsConditions;
+      if (privacyPolicy !== undefined) cms.privacyPolicy = privacyPolicy;
+      if (faqs !== undefined) cms.faqs = faqs;
+      if (refundPolicy !== undefined) cms.refundPolicy = refundPolicy;
     }
 
     await cms.save();
