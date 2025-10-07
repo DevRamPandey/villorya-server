@@ -14,6 +14,7 @@ const leadRoutes = require("../routes/leadsRoutes");
 const blogRoutes = require("../routes/blogsRoutes");
 const packageSupplierRoutes = require("../routes/packageSupplierRoutes");
 const rawSupplierRoutes = require("../routes/rawSupplierRoutes");
+const cmsRoutes = require("../routes/cmsRoutes");
 connectDB();
 
 const app = express();
@@ -41,6 +42,7 @@ app.use('/api/v1/leads', leadRoutes);
 app.use('/api/v1/package-suppliers', packageSupplierRoutes);
 app.use('/api/v1/raw-suppliers', rawSupplierRoutes);
 app.use('/api/v1/blogs', blogRoutes);
+app.use('/api/v1/cms', cmsRoutes);
 
 
 // Error middleware
