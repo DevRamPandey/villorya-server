@@ -1,19 +1,13 @@
-import express from "express";
-import {
-  getAllSuppliers,
-  addSupplier,
-  updateSupplier,
-  deleteSupplier,
-} from "../controllers/packageSupplierController";
 const protect = require('../middleware/authMiddleware');
+const express = require('express');
 const router = express.Router();
+const dashboardController = require('../controllers/packageSupplierController');
+const protect = require('../middleware/authMiddleware');
 
-// All routes are protected
+// Authenticated
+router.get("/",protect, dashboardController.getAllSuppliers);
+router.post("/",protect, dashboardController.addSupplier);
+router.put("/:id",protect, dashboardController.updateSupplier);
+router.delete("/:id",protect, dashboardController.deleteSupplier);
 
-
-router.get("/",protect, getAllSuppliers);
-router.post("/",protect, addSupplier);
-router.put("/:id",protect, updateSupplier);
-router.delete("/:id",protect, deleteSupplier);
-
-export default router;
+module.exports = router;

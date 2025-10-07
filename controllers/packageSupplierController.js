@@ -1,4 +1,4 @@
-import PackageSupplier from "../models/packageSupplier";
+const PackageSupplier=require('../models/packageSupplier');
 
 // Helper: Validate supplier fields
 const validateSupplierFields = (data) => {
