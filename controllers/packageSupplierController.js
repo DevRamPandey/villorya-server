@@ -57,6 +57,7 @@ export const updateSupplier = async (req, res) => {
   }
 };
 
+
 // Delete supplier
 export const deleteSupplier = async (req, res) => {
   try {
