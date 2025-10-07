@@ -7,15 +7,22 @@ const packageSupplierSchema = new mongoose.Schema(
     phone: { type: String, required: true },
     productDescription: { type: String, required: true },
     note: { type: String },
+
     status: {
       type: String,
       enum: ["active", "inactive", "pending"],
       default: "active",
     },
+
     minOrderValue: { type: Number, default: 0 },
     pricePerUnit: { type: Number, default: 0 },
+
+    minOrderWeight: { type: Number, default: 0 }, 
+    pricePerKg: { type: Number, default: 0 },
+    location: { type: String, default: "" }, 
+    website: { type: String, default: "" }, 
   },
   { timestamps: true }
 );
-module.exports = mongoose.model('PackageSupplier', packageSupplierSchema);
 
+module.exports = mongoose.model('PackageSupplier', packageSupplierSchema);
