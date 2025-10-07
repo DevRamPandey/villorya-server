@@ -1,4 +1,5 @@
 // index.js
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
@@ -11,9 +12,8 @@ const authRoutes = require("../routes/authRoutes");
 const leadRoutes = require("../routes/leadsRoutes");
 const blogRoutes = require("../routes/blogsRoutes");
 
-connectDB();
 
-require("dotenv").config();
+connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
