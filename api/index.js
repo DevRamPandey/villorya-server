@@ -13,7 +13,7 @@ const dashboardRoutes = require("../routes/dashboardRoutes");
 const leadRoutes = require("../routes/leadsRoutes");
 const blogRoutes = require("../routes/blogsRoutes");
 const packageSupplierRoutes = require("../routes/packageSupplierRoutes");
-
+const rawSupplierRoutes = require("../routes/rawSupplierRoutes");
 connectDB();
 
 const app = express();
@@ -39,7 +39,9 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/dashboard', dashboardRoutes);
 app.use('/api/v1/leads', leadRoutes);
 app.use('/api/v1/package-suppliers', packageSupplierRoutes);
+app.use('/api/v1/raw-suppliers', rawSupplierRoutes);
 app.use('/api/v1/blogs', blogRoutes);
+
 
 // Error middleware
 app.use(errorMiddleware);
