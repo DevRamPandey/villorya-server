@@ -1,4 +1,3 @@
-const protect = require('../middleware/authMiddleware');
 const express = require('express');
 const router = express.Router();
 const dashboardController = require('../controllers/packageSupplierController');
