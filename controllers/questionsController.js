@@ -27,6 +27,33 @@ const getQuestions = async (req, res) => {
   }
 };
 
+// Get all questions grouped by category
+const getAllQuestions = async (req, res) => {
+  try {
+    // Fetch all questions at once
+    const questions = await Question.find();
+
+    // Group questions by category
+    const grouped = {
+      packageSuppliers: [],
+      rawSuppliers: [],
+      packageFAQs: [],
+      rawFAQs: []
+    };
+
+    questions.forEach(q => {
+      if (grouped[q.category]) {
+        grouped[q.category].push(q);
+      }
+    });
+
+    res.json({ success: true, data: grouped });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+
 // Update question text
 const updateQuestion = async (req, res) => {
   try {
@@ -122,4 +149,5 @@ module.exports = {
   addAnswer,
   updateAnswer,
   deleteAnswer,
+  getAllQuestions
 };

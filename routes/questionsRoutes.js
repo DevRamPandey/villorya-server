@@ -8,6 +8,7 @@ const {
   addAnswer,
   updateAnswer,
   deleteAnswer,
+  getAllQuestions
 } = require('../controllers/questionsController');
 const protect = require('../middleware/authMiddleware');
 
@@ -15,6 +16,7 @@ const protect = require('../middleware/authMiddleware');
 // CRUD for questions
 router.post('/',protect, createQuestion);
 router.get('/:category',protect, getQuestions);
+router.get('/',protect, getAllQuestions);
 router.put('/:id',protect, updateQuestion);
 router.delete('/:id',protect, deleteQuestion);
 
