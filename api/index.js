@@ -1,4 +1,3 @@
-// index.js
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -16,6 +15,7 @@ const packageSupplierRoutes = require("../routes/packageSupplierRoutes");
 const rawSupplierRoutes = require("../routes/rawSupplierRoutes");
 const cmsRoutes = require("../routes/cmsRoutes");
 const questionsRoutes = require("../routes/questionsRoutes");
+
 connectDB();
 
 const app = express();

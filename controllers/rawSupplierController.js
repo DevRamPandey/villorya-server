@@ -1,6 +1,6 @@
 const RawSupplier = require("../models/rawSupplier");
 
-// Get all raw suppliers
+// 🧾 Get all raw suppliers
 exports.getAllSuppliers = async (req, res) => {
   try {
     const suppliers = await RawSupplier.find().sort({ createdAt: -1 });
@@ -10,25 +10,52 @@ exports.getAllSuppliers = async (req, res) => {
   }
 };
 
-// Add new supplier
+// ➕ Add new supplier
 exports.addSupplier = async (req, res) => {
   try {
-    const { name, email, phone, productDescription, note, status, minOrderValue, pricePerGram } = req.body;
+    const {
+      name,
+      email,
+      phone,
+      website,
+      productName,
+      productDescription,
+      note,
+      status,
+      minOrderValue,
+      pricePerGram,
+      location,
+    } = req.body;
 
     // Basic validation
-    if (!name || !email || !phone || !productDescription || status === undefined || minOrderValue === undefined || pricePerGram === undefined) {
-      return res.status(400).json({ success: false, message: "All required fields must be provided" });
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !productDescription ||
+      !productName ||
+      !status ||
+      minOrderValue === undefined ||
+      pricePerGram === undefined
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "All required fields must be provided",
+      });
     }
 
     const newSupplier = new RawSupplier({
       name,
       email,
       phone,
+      website,
+      productName,
       productDescription,
       note,
       status,
       minOrderValue,
       pricePerGram,
+      location,
     });
 
     await newSupplier.save();
@@ -38,7 +65,7 @@ exports.addSupplier = async (req, res) => {
   }
 };
 
-// Update supplier
+// ✏️ Update supplier
 exports.updateSupplier = async (req, res) => {
   try {
     const updatedSupplier = await RawSupplier.findByIdAndUpdate(
@@ -47,8 +74,11 @@ exports.updateSupplier = async (req, res) => {
       { new: true, runValidators: true }
     );
 
-    if (!updatedSupplier)
-      return res.status(404).json({ success: false, message: "Supplier not found" });
+    if (!updatedSupplier) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Supplier not found" });
+    }
 
     res.json({ success: true, data: updatedSupplier });
   } catch (error) {
@@ -56,12 +86,16 @@ exports.updateSupplier = async (req, res) => {
   }
 };
 
-// Delete supplier
+// ❌ Delete supplier
 exports.deleteSupplier = async (req, res) => {
   try {
     const deletedSupplier = await RawSupplier.findByIdAndDelete(req.params.id);
-    if (!deletedSupplier)
-      return res.status(404).json({ success: false, message: "Supplier not found" });
+
+    if (!deletedSupplier) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Supplier not found" });
+    }
 
     res.json({ success: true, message: "Supplier deleted successfully" });
   } catch (error) {
