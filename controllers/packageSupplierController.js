@@ -5,7 +5,7 @@ const validateSupplierFields = (data) => {
   const { name, email, phone, productDescription, status, minOrderValue, pricePerUnit } = data;
   if (!name || !name.trim()) return "Name is required";
   if (!email || !/^\S+@\S+\.\S+$/.test(email)) return "Valid email is required";
-  if (!phone || !/^\+?\d{7,15}$/.test(phone)) return "Valid phone number is required";
+  if (!phone) return "Valid phone number is required";
   if (!productDescription || !productDescription.trim()) return "Product description is required";
   if (!["active", "inactive", "pending"].includes(status)) return "Status must be active, inactive or pending";
   if (minOrderValue < 0) return "Min order value cannot be negative";
