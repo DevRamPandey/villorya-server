@@ -50,7 +50,7 @@ exports.updateEntry = async (req, res) => {
 
     entry.title = title || entry.title;
     entry.description = description || entry.description;
-    entry.tags = tags ? tags.split(",").map((t) => t.trim()) : entry.tags;
+    entry.tags = tags ? tags.map((t) => t.trim()) : entry.tags;
     entry.updatedAt = new Date();
 
     await entry.save();
