@@ -6,10 +6,10 @@ exports.uploadFile = async (req, res) => {
   }
 
   try {
+    console.log(req.file.path);
     // Upload to Cloudinary
     const result = await cloudinary.uploader.upload(req.file.path, {
       resource_type: "auto", // supports PDF, images, etc.
-      folder: "rd-files",    // optional folder
     });
 
     // result.url or result.secure_url
