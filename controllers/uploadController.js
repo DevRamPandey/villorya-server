@@ -1,7 +1,7 @@
 const cloudinary = require("../config/cloudinary");
 
 exports.uploadFile = async (req, res) => {
-  if (!req.file) {
+  if (!req.file.path) {
     return res.status(400).json({ success: false, message: "No file uploaded" });
   }
 
