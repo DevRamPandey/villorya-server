@@ -1,8 +1,6 @@
 const multer = require("multer");
 
-// Use memory storage for serverless environments like Vercel
-const storage = multer.memoryStorage();
-
+const storage = multer.memoryStorage(); // store file in memory
 const upload = multer({
   storage,
   fileFilter: (req, file, cb) => {

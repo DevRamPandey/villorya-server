@@ -1,11 +1,26 @@
-const path = require("path");
+const cloudinary = require("../config/cloudinary");
 
-// Upload PDF and return URL
-exports.uploadFile = (req, res) => {
+exports.uploadFile = async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: false, message: "No file uploaded" });
   }
 
-  const fileUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
-  res.json({ success: true, fileUrl, fileName: req.file.originalname });
+  try {
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      resource_type: "auto", // supports PDF, images, etc.
+      folder: "rd-files",    // optional folder
+    });
+
+    // result.url or result.secure_url
+    res.json({
+      success: true,
+      fileUrl: result.secure_url,
+      fileName: req.file.originalname,
+      cloudinaryId: result.public_id,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Cloudinary upload failed" });
+  }
 };
