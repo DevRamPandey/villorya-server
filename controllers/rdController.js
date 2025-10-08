@@ -24,7 +24,7 @@ exports.createEntry = async (req, res) => {
     const newEntry = new RDEntry({
       title,
       description,
-      tags: tags ? tags.split(",").map((t) => t.trim()) : [],
+      tags: tags ? tags.map((t) => t.trim()) : [],
       versions: [
         {
           versionNumber: 1,
