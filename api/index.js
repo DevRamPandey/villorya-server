@@ -15,6 +15,7 @@ const packageSupplierRoutes = require("../routes/packageSupplierRoutes");
 const rawSupplierRoutes = require("../routes/rawSupplierRoutes");
 const cmsRoutes = require("../routes/cmsRoutes");
 const questionsRoutes = require("../routes/questionsRoutes");
+const rdRoutes = require("../routes/rdRoutes");
 
 connectDB();
 
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 app.use(helmet());
 app.use(morgan("common"));
 app.use(cors());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Serve public folder
 app.use(express.static(path.join(__dirname, 'public', )));
@@ -45,6 +47,7 @@ app.use('/api/v1/raw-suppliers', rawSupplierRoutes);
 app.use('/api/v1/blogs', blogRoutes);
 app.use('/api/v1/cms', cmsRoutes);
 app.use('/api/v1/questions', questionsRoutes);
+app.use("/api/v1/rd", rdRoutes);
 
 // Error middleware
 app.use(errorMiddleware);
