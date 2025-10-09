@@ -16,6 +16,7 @@ const rawSupplierRoutes = require("../routes/rawSupplierRoutes");
 const cmsRoutes = require("../routes/cmsRoutes");
 const questionsRoutes = require("../routes/questionsRoutes");
 const rdRoutes = require("../routes/rdRoutes");
+const kanbanRoutes = require("../routes/kanbanRoutes");
 
 connectDB();
 
@@ -48,7 +49,7 @@ app.use('/api/v1/blogs', blogRoutes);
 app.use('/api/v1/cms', cmsRoutes);
 app.use('/api/v1/questions', questionsRoutes);
 app.use("/api/v1/rd", rdRoutes);
-
+app.use("/api/v1/kanban", kanbanRoutes);
 // Error middleware
 app.use(errorMiddleware);
 
