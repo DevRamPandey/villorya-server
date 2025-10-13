@@ -45,9 +45,9 @@ exports.uploadFile = async (req, res) => {
       fileUrl: url,
       fileName: req.file.originalname,
     });
-    
+
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, message: "Cloudinary upload failed" });
+    res.status(500).json({ success: false, message: "upload failed" });
   }
 };
