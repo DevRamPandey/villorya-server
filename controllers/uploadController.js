@@ -10,10 +10,10 @@ if (!admin.apps.length) {
   });
 }
 
-const db = admin.firestore();
 const bucket = admin.storage().bucket();
 
 exports.uploadFile = async (req, res) => {
+  console.log(req.file);
   if (!req.file.path) {
     return res.status(400).json({ success: false, message: "No file uploaded" });
   }
