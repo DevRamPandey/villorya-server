@@ -1,4 +1,17 @@
-const cloudinary = require("../config/cloudinary");
+const admin = require("firebase-admin");
+const fs = require("fs");
+
+const serviceAccount = require("../firebaseServiceAccount.json");
+
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    storageBucket: process.env.FIREBASE_BUCKET,
+  });
+}
+
+const db = admin.firestore();
+const bucket = admin.storage().bucket();
 
 exports.uploadFile = async (req, res) => {
   if (!req.file.path) {
@@ -7,18 +20,32 @@ exports.uploadFile = async (req, res) => {
 
   try {
     console.log(req.file.path);
-    // Upload to Cloudinary
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      resource_type: "auto", // supports PDF, images, etc.
+    // Upload to firebase
+    const filePath = req.file.path;
+    const destination = `uploads/${Date.now()}_${req.file.originalname}`;
+
+    // Upload to Firebase Storage
+    await bucket.upload(filePath, {
+      destination,
+      public: true,
+      metadata: { contentType: req.file.mimetype },
     });
 
-    // result.url or result.secure_url
+    // Get public URL
+    const file = bucket.file(destination);
+    const [url] = await file.getSignedUrl({
+      action: "read"
+    });
+
+    // Remove local temp file
+    fs.unlinkSync(filePath);
+
     res.json({
       success: true,
-      fileUrl: result.secure_url,
+      fileUrl: url,
       fileName: req.file.originalname,
-      cloudinaryId: result.public_id,
     });
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Cloudinary upload failed" });

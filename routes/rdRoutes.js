@@ -5,20 +5,7 @@ const uploadController = require("../controllers/uploadController");
 
 const protect = require('../middleware/authMiddleware');
 const upload = require("../middleware/uploadMiddleware");
-// Multer config
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => cb(null, "uploads/"),
-//   filename: (req, file, cb) =>
-//     cb(null, Date.now() + path.extname(file.originalname)),
-// });
 
-// const upload = multer({
-//   storage,
-//   fileFilter: (req, file, cb) => {
-//     if (file.mimetype === "application/pdf") cb(null, true);
-//     else cb(new Error("Only PDF files allowed"));
-//   },
-// });
 
 // R&D APIs
 router.get("/", protect,rdController.getAllEntries);
