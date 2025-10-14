@@ -17,6 +17,7 @@ const cmsRoutes = require("../routes/cmsRoutes");
 const questionsRoutes = require("../routes/questionsRoutes");
 const rdRoutes = require("../routes/rdRoutes");
 const kanbanRoutes = require("../routes/kanbanRoutes");
+const contactRoutes = require("../routes/contactRoutes");
 
 connectDB();
 
@@ -50,9 +51,10 @@ app.use('/api/v1/cms', cmsRoutes);
 app.use('/api/v1/questions', questionsRoutes);
 app.use("/api/v1/rd", rdRoutes);
 app.use("/api/v1/kanban", kanbanRoutes);
+app.use("/api/v1/contact", contactRoutes);
+
 // Error middleware
 app.use(errorMiddleware);
-
 
 // Start the server
 app.listen(PORT, () => {
