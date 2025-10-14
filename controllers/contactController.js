@@ -29,27 +29,23 @@ exports.createContact = async (req, res, next) => {
 
 exports.getAllContacts = async (req, res, next) => {
   try {
-    // Admin listing: support filtering, pagination, sort
-    const { status, page = 1, limit = 25, sort = "-createdAt" } = req.query;
+    // Optional filtering by status
+    const { status } = req.query;
     const filter = {};
     if (status) filter.status = status;
 
-    const skip = (Math.max(parseInt(page, 10), 1) - 1) * parseInt(limit, 10);
-
-    const [contacts, total] = await Promise.all([
-      Contact.find(filter).sort(sort).skip(skip).limit(parseInt(limit, 10)),
-      Contact.countDocuments(filter),
-    ]);
+    const contacts = await Contact.find(filter).sort("-createdAt"); // sort by newest first
 
     res.json({
       success: true,
       data: contacts,
-      meta: { total, page: parseInt(page, 10), limit: parseInt(limit, 10) },
+      meta: { total: contacts.length },
     });
   } catch (err) {
     next(err);
   }
 };
+
 
 exports.getContact = async (req, res, next) => {
   try {
