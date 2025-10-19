@@ -1,7 +1,7 @@
-import Product from "../models/product";
+const Product=require('../models/product');
 
 // Create a new product
-export const createProduct = async (req, res) => {
+ const createProduct = async (req, res) => {
   try {
     const {
       title,
@@ -170,7 +170,7 @@ export const createProduct = async (req, res) => {
 
 
 // Get all products
-export const getAllProducts = async (req, res) => {
+ const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find().sort({ createdAt: -1 });
     res.json({ success: true, products });
@@ -180,7 +180,7 @@ export const getAllProducts = async (req, res) => {
 };
 
 // Get single product
-export const getProductById = async (req, res) => {
+ const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product)
@@ -192,7 +192,7 @@ export const getProductById = async (req, res) => {
 };
 
 // Delete product
-export const deleteProduct = async (req, res) => {
+ const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
     if (!product)
@@ -201,4 +201,11 @@ export const deleteProduct = async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
+};
+
+module.exports = {
+  createProduct,
+  getAllProducts,
+  getProductById,
+  deleteProduct
 };

@@ -8,6 +8,9 @@ const upload = require("../middleware/uploadMiddleware");
 
 // File upload API
 router.post("/upload", protect, upload.uploadMedia.single("file"), uploadController.uploadFile);
-
+router.post("/",protect, productController.createProduct);
+router.get("/", productController.getAllProducts);
+router.get("/:id", productController.getProductById);
+router.delete("/:id",protect, productController.deleteProduct);
 
 module.exports = router;
