@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
-const schema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
   title: String,
   variety: String,
   itemForm: String,
@@ -40,4 +40,4 @@ const schema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-export default mongoose.model("Product", schema);
+module.exports = mongoose.model('Product', productSchema);
