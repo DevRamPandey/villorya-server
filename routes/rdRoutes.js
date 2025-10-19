@@ -15,7 +15,7 @@ router.delete("/:id", protect,rdController.deleteEntry);
 router.post("/:id/version", protect,rdController.addVersion);
 
 // File upload API
-router.post("/upload", protect, upload.single("file"), uploadController.uploadFile);
+router.post("/upload", protect, upload.uploadPdf.single("file"), uploadController.uploadFile);
 
 
 module.exports = router;
