@@ -46,7 +46,7 @@ const sendContactResponseEmail = async (toEmail,userName,ticketId,date) => {
   const transporter = nodemailer.createTransport({
   host: 'smtpout.secureserver.net',
   port: Number(465),
-  secure: false,
+  secure: true,
   auth: {
     user: 'support@villorya.com',
     pass: 'Qweasz@321',
