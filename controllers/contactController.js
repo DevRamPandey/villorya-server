@@ -35,13 +35,23 @@ exports.createContact = async (req, res, next) => {
 };
 
 const sendContactResponseEmail = async (toEmail,userName,ticketId,date) => {
+  // const transporter = nodemailer.createTransport({
+  //   service: "gmail", // or your SMTP provider
+  //   auth: {
+  //     user: 'villoryaorganics@gmail.com',
+  //     pass: 'pehs usdg ohnn saum',
+  //   },
+  // });
+
   const transporter = nodemailer.createTransport({
-    service: "gmail", // or your SMTP provider
-    auth: {
-      user: 'villoryaorganics@gmail.com',
-      pass: 'pehs usdg ohnn saum',
-    },
-  });
+  host: 'smtp.titan.email',
+  port: Number(465),
+  secure: false,
+  auth: {
+    user: 'support@villorya.com',
+    pass: 'Qweasz@321',
+  },
+});
 
   const htmlTemplate = contactUsEmail(userName,ticketId,date);
 
