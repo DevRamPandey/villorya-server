@@ -58,11 +58,11 @@ const sendContactResponseEmail = async (toEmail,userName,ticketId,date) => {
   const htmlTemplate = contactUsEmail(userName,ticketId,date);
 
   const { data, error } = await resend.emails.send({
-  from: 'Villorya <onboarding@resend.dev>',
+  from: 'Villorya <support@villorya.com>',
   to: [toEmail],
   subject:  "We've received your message — Villorya",
   html: htmlTemplate,
-  replyTo: 'onboarding@resend.dev',
+  replyTo: 'support@villorya.com',
 });
 console.log(data);
 console.log(error);
