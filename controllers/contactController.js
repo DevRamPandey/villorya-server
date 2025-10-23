@@ -3,7 +3,7 @@ const Contact = require("../models/contact");
 const { validationResult } = require("express-validator");
 const { contactUsEmail } = require("../utils/emailTemplate");
 const nodemailer = require("nodemailer");
-const Resend=require('resend');
+const {Resend}=require('resend');
 const resend = new Resend('re_4tykmNYW_AoPCbRFxANHsqDPUKhXgQFvm');
 // Helper to throw validation errors in a consistent format
 function handleValidationErrors(req) {
