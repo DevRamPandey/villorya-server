@@ -44,7 +44,7 @@ const sendContactResponseEmail = async (toEmail,userName,ticketId,date) => {
   // });
 
   const transporter = nodemailer.createTransport({
-  host: 'smtp.titan.email',
+  host: 'smtpout.secureserver.net',
   port: Number(465),
   secure: false,
   auth: {
