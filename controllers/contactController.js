@@ -1,6 +1,7 @@
 // Save as: controllers/contactController.js
 const Contact = require("../models/contact");
 const { validationResult } = require("express-validator");
+const { contactUsEmail } = require("../utils/emailTemplate");
 
 // Helper to throw validation errors in a consistent format
 function handleValidationErrors(req) {
@@ -21,10 +22,35 @@ exports.createContact = async (req, res, next) => {
 
     const contact = await Contact.create({ name, email, message });
 
+    try{
+     await sendContactResponseEmail(email,name,contact.id,Date.now().toLocaleString());
+    }catch(ex){
+      console.log(ex);
+    }
+
     res.status(201).json({ success: true, data: contact });
   } catch (err) {
     next(err);
   }
+};
+
+const sendContactResponseEmail = async (toEmail,userName,ticketId,date) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail", // or your SMTP provider
+    auth: {
+      user: 'villoryaorganics@gmail.com',
+      pass: 'pehs usdg ohnn saum',
+    },
+  });
+
+  const htmlTemplate = contactUsEmail(userName,ticketId,date);
+
+  await transporter.sendMail({
+    from: `"Villorya" villoryaorganics@gmail.com`,
+    to: toEmail,
+    subject: "We've received your message — Villorya",
+    html: htmlTemplate,
+  });
 };
 
 exports.getAllContacts = async (req, res, next) => {
