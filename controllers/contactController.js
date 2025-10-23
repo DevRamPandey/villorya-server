@@ -3,6 +3,8 @@ const Contact = require("../models/contact");
 const { validationResult } = require("express-validator");
 const { contactUsEmail } = require("../utils/emailTemplate");
 const nodemailer = require("nodemailer");
+const Resend=require('resend');
+const resend = new Resend('re_4tykmNYW_AoPCbRFxANHsqDPUKhXgQFvm');
 // Helper to throw validation errors in a consistent format
 function handleValidationErrors(req) {
   const errors = validationResult(req);
@@ -42,25 +44,34 @@ const sendContactResponseEmail = async (toEmail,userName,ticketId,date) => {
   //     pass: 'pehs usdg ohnn saum',
   //   },
   // });
-
-  const transporter = nodemailer.createTransport({
-  host: 'smtpout.secureserver.net',
-  port: Number(465),
-  secure: true,
-  auth: {
-    user: 'support@villorya.com',
-    pass: 'Qweasz@321',
-  },
-});
+  
+//   const transporter = nodemailer.createTransport({
+//   host: 'smtpout.secureserver.net',
+//   port: Number(465),
+//   secure: true,
+//   auth: {
+//     user: 'support@villorya.com',
+//     pass: 'Qweasz@321',
+//   },
+// });
 
   const htmlTemplate = contactUsEmail(userName,ticketId,date);
 
-  await transporter.sendMail({
-    from: `"Villorya" villoryaorganics@gmail.com`,
-    to: toEmail,
-    subject: "We've received your message — Villorya",
-    html: htmlTemplate,
-  });
+  const { data, error } = await resend.emails.send({
+  from: 'Villorya <onboarding@resend.dev>',
+  to: [toEmail],
+  subject:  "We've received your message — Villorya",
+  html: htmlTemplate,
+  replyTo: 'onboarding@resend.dev',
+});
+console.log(data);
+console.log(error);
+  // await transporter.sendMail({
+  //   from: `"Villorya" villoryaorganics@gmail.com`,
+  //   to: toEmail,
+  //   subject: "We've received your message — Villorya",
+  //   html: htmlTemplate,
+  // });
 };
 
 exports.getAllContacts = async (req, res, next) => {
