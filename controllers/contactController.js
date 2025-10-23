@@ -2,7 +2,7 @@
 const Contact = require("../models/contact");
 const { validationResult } = require("express-validator");
 const { contactUsEmail } = require("../utils/emailTemplate");
-
+const nodemailer = require("nodemailer");
 // Helper to throw validation errors in a consistent format
 function handleValidationErrors(req) {
   const errors = validationResult(req);
