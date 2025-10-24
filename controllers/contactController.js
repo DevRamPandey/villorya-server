@@ -134,7 +134,7 @@ exports.moveToPending = async (req, res, next) => {
     contact.movedToPendingAt = new Date();
     await contact.save();
      try{
-     await sendProcessingResponseEmail(email,name,contact.id,Date.now());
+     await sendProcessingResponseEmail(contact.email,contact.name,contact.id,Date.now());
     }catch(ex){
       console.log(ex);
     }
@@ -168,7 +168,7 @@ exports.completeTicket = async (req, res, next) => {
     contact.completedAt = new Date();
     await contact.save();
    try{
-     await sendResolvedResponseEmail(email,name,contact.id,Date.now(),adminComment);
+     await sendResolvedResponseEmail(contact.email,contact.name,contact.id,Date.now(),adminComment);
     }catch(ex){
       console.log(ex);
     }
