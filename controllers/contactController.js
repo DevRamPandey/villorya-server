@@ -1,7 +1,7 @@
 // Save as: controllers/contactController.js
 const Contact = require("../models/contact");
 const { validationResult } = require("express-validator");
-const { contactUsEmail } = require("../utils/emailTemplate");
+const { contactUsEmail, processingEmail, resolvedEmail } = require("../utils/emailTemplate");
 const nodemailer = require("nodemailer");
 const {Resend}=require('resend');
 const resend = new Resend('re_4tykmNYW_AoPCbRFxANHsqDPUKhXgQFvm');
@@ -25,7 +25,7 @@ exports.createContact = async (req, res, next) => {
     const contact = await Contact.create({ name, email, message });
 
     try{
-     await sendContactResponseEmail(email,name,contact.id,Date.now().toLocaleString());
+     await sendContactResponseEmail(email,name,contact.id,Date.now());
     }catch(ex){
       console.log(ex);
     }
@@ -37,24 +37,6 @@ exports.createContact = async (req, res, next) => {
 };
 
 const sendContactResponseEmail = async (toEmail,userName,ticketId,date) => {
-  // const transporter = nodemailer.createTransport({
-  //   service: "gmail", // or your SMTP provider
-  //   auth: {
-  //     user: 'villoryaorganics@gmail.com',
-  //     pass: 'pehs usdg ohnn saum',
-  //   },
-  // });
-  
-//   const transporter = nodemailer.createTransport({
-//   host: 'smtpout.secureserver.net',
-//   port: Number(465),
-//   secure: true,
-//   auth: {
-//     user: 'support@villorya.com',
-//     pass: 'Qweasz@321',
-//   },
-// });
-
   const htmlTemplate = contactUsEmail(userName,ticketId,date);
 
   const { data, error } = await resend.emails.send({
@@ -66,12 +48,34 @@ const sendContactResponseEmail = async (toEmail,userName,ticketId,date) => {
 });
 console.log(data);
 console.log(error);
-  // await transporter.sendMail({
-  //   from: `"Villorya" villoryaorganics@gmail.com`,
-  //   to: toEmail,
-  //   subject: "We've received your message — Villorya",
-  //   html: htmlTemplate,
-  // });
+};
+
+const sendProcessingResponseEmail = async (toEmail,userName,ticketId,date) => {
+  const htmlTemplate =processingEmail (userName,ticketId,date);
+
+  const { data, error } = await resend.emails.send({
+  from: 'Villorya <support@villorya.com>',
+  to: [toEmail],
+  subject:  "We are processing your ticket — Villorya",
+  html: htmlTemplate,
+  replyTo: 'support@villorya.com',
+});
+console.log(data);
+console.log(error);
+};
+
+const sendResolvedResponseEmail = async (toEmail,userName,ticketId,date,message) => {
+  const htmlTemplate =resolvedEmail(userName,ticketId,date,message);
+
+  const { data, error } = await resend.emails.send({
+  from: 'Villorya <support@villorya.com>',
+  to: [toEmail],
+  subject:  "Your ticket has been resolved — Villorya",
+  html: htmlTemplate,
+  replyTo: 'support@villorya.com',
+});
+console.log(data);
+console.log(error);
 };
 
 exports.getAllContacts = async (req, res, next) => {
@@ -129,7 +133,11 @@ exports.moveToPending = async (req, res, next) => {
     contact.status = "pending";
     contact.movedToPendingAt = new Date();
     await contact.save();
-
+     try{
+     await sendProcessingResponseEmail(email,name,contact.id,Date.now());
+    }catch(ex){
+      console.log(ex);
+    }
     res.json({ success: true, data: contact });
   } catch (err) {
     next(err);
@@ -159,7 +167,11 @@ exports.completeTicket = async (req, res, next) => {
     contact.adminComment = adminComment;
     contact.completedAt = new Date();
     await contact.save();
-
+   try{
+     await sendResolvedResponseEmail(email,name,contact.id,Date.now(),adminComment);
+    }catch(ex){
+      console.log(ex);
+    }
     res.json({ success: true, data: contact });
   } catch (err) {
     next(err);

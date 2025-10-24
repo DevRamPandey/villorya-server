@@ -179,7 +179,7 @@ const contactUsEmail = (userName, ticketId, date) => {
         </p>
 
         <div class="ticket-box">
-          📩 Ticket ID: <strong>${ticketId}</strong>
+           Ticket ID: <strong>${ticketId}</strong>
         </div>
 
         <p>
@@ -225,12 +225,12 @@ const contactUsEmail = (userName, ticketId, date) => {
 }
 
 const processingEmail = (userName, ticketId, date) => {
-    return `<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Villorya | Message Received</title>
+    <title>Villorya | Ticket in Process</title>
     <style>
       body {
         font-family: "Poppins", "Segoe UI", Arial, sans-serif;
@@ -398,18 +398,17 @@ const processingEmail = (userName, ticketId, date) => {
       <!-- Content -->
       <div class="content">
         <h2>Hello ${userName},</h2>
-        <p>Thank you for reaching out to <strong>Villorya</strong>.</p>
+        <p>We’re happy to inform you that your message has been received successfully.</p>
         <p>
-          Your message has been received successfully.  
-          Our team will get back to you as soon as possible.
+          Our team has started <strong>processing your ticket</strong> and will get back to you shortly.
         </p>
 
         <div class="ticket-box">
-          📩 Ticket ID: <strong>${ticketId}</strong>
+          Ticket ID: <strong>${ticketId}</strong>
         </div>
 
         <p>
-          We appreciate your interest in our pure, natural, and authentic products.
+          Thank you for choosing <strong>Villorya</strong> — where purity meets perfection.
         </p>
 
         <a href="https://villorya.com" class="button">Visit Our Website</a>
@@ -440,24 +439,23 @@ const processingEmail = (userName, ticketId, date) => {
       <div class="footer">
         © Villorya. Crafted with care, delivered with love.  
         <br />
-        <span style="color:#999;">Sent on ${date}</span>
+        <span style="color:#999;">Ticket created on ${date}</span>
         <br />
         <a href="https://villorya.com">www.villorya.com</a>
       </div>
     </div>
   </body>
-</html>
-`;
-}
+</html>`;
+};
 
 
-const resolvedEmail = (userName, ticketId, date) => {
-    return `<!DOCTYPE html>
+const resolvedEmail = (userName, ticketId, date, message) => {
+  return `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Villorya | Message Received</title>
+    <title>Villorya | Ticket Resolved</title>
     <style>
       body {
         font-family: "Poppins", "Segoe UI", Arial, sans-serif;
@@ -479,14 +477,8 @@ const resolvedEmail = (userName, ticketId, date) => {
       }
 
       @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(15px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       .header {
@@ -504,14 +496,8 @@ const resolvedEmail = (userName, ticketId, date) => {
       }
 
       @keyframes floatUp {
-        0% {
-          transform: translateY(10px);
-          opacity: 0;
-        }
-        100% {
-          transform: translateY(0);
-          opacity: 1;
-        }
+        0% { transform: translateY(10px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
       }
 
       .header h1 {
@@ -519,7 +505,6 @@ const resolvedEmail = (userName, ticketId, date) => {
         font-weight: 700;
         margin: 0;
         color: #000000;
-        letter-spacing: -0.5px;
       }
 
       .content {
@@ -551,6 +536,17 @@ const resolvedEmail = (userName, ticketId, date) => {
         font-size: 14px;
         font-weight: 500;
         color: #000000;
+      }
+
+      .resolution-box {
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 20px;
+        font-size: 14px;
+        text-align: left;
+        color: #333;
+        border-left: 3px solid #000000;
       }
 
       .button {
@@ -625,18 +621,20 @@ const resolvedEmail = (userName, ticketId, date) => {
       <!-- Content -->
       <div class="content">
         <h2>Hello ${userName},</h2>
-        <p>Thank you for reaching out to <strong>Villorya</strong>.</p>
-        <p>
-          Your message has been received successfully.  
-          Our team will get back to you as soon as possible.
-        </p>
+        <p>We’re glad to inform you that your support ticket has been <strong>resolved successfully.</strong></p>
 
         <div class="ticket-box">
-          📩 Ticket ID: <strong>${ticketId}</strong>
+           Ticket ID: <strong>${ticketId}</strong>
         </div>
 
-        <p>
-          We appreciate your interest in our pure, natural, and authentic products.
+        <div class="resolution-box">
+          <strong>Resolution Message:</strong><br />
+          ${message}
+        </div>
+
+        <p style="margin-top: 20px;">
+          Thank you for your patience and for choosing <strong>Villorya</strong>.  
+          We truly value your trust in our natural and authentic products.
         </p>
 
         <a href="https://villorya.com" class="button">Visit Our Website</a>
@@ -667,15 +665,15 @@ const resolvedEmail = (userName, ticketId, date) => {
       <div class="footer">
         © Villorya. Crafted with care, delivered with love.  
         <br />
-        <span style="color:#999;">Sent on ${date}</span>
+        <span style="color:#999;">Resolved on ${date}</span>
         <br />
         <a href="https://villorya.com">www.villorya.com</a>
       </div>
     </div>
   </body>
-</html>
-`;
-}
+</html>`;
+};
+
 
 
 module.exports = {
