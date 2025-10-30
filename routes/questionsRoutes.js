@@ -10,7 +10,7 @@ const {
   deleteAnswer,
   getAllQuestions
 } = require('../controllers/questionsController');
-const protect = require('../middleware/authMiddleware');
+const {protect} = require('../middleware/authMiddleware');
 
 
 // CRUD for questions

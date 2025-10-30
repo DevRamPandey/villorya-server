@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const kanbanController = require("../controllers/kanbanController");
-const protect = require("../middleware/authMiddleware"); 
+const {protect} = require("../middleware/authMiddleware"); 
 
 router.get("/", protect, kanbanController.getAllTickets);
 router.post("/", protect, kanbanController.createTicket);

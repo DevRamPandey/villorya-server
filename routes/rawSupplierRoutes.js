@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const rawSupplierController = require("../controllers/rawSupplierController");
-const protect = require('../middleware/authMiddleware');
+const {protect} = require('../middleware/authMiddleware');
 
 router.get("/", protect,rawSupplierController.getAllSuppliers);
 router.post("/", protect,rawSupplierController.addSupplier);
