@@ -1,7 +1,7 @@
 // routes/leadRoutes.js
 const express = require('express');
 const router = express.Router();
-const protect = require('../middleware/authMiddleware');
+const {protect} = require('../middleware/authMiddleware');
 const validateRequest = require('../utils/validateRequest');
 const blogValidator = require('../validations/blogValidation');
 const blogController = require('../controllers/blogsController');
