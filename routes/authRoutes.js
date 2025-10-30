@@ -7,6 +7,8 @@ const { loginValidator, resetPasswordValidator } = require('../validations/authV
 
 router.post('/login', validate(loginValidator), authController.login);
 router.post('/reset-password', validate(resetPasswordValidator), authController.resetPassword);
+router.post('/get-otp',  authController.resetPassword);
+router.post('/validate-otp', authController.resetPassword);
 // router.get('/dashboard-details', protect, authController.getDashboard);
 
 module.exports = router;
