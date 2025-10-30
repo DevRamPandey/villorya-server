@@ -33,7 +33,7 @@ exports.login = async (req, res, next) => {
 exports.resetPassword = async (req, res, next) => {
     try {
         const { email, newPassword } = req.body;
-        const admin = await user.findOne({ email });
+        const admin = await User.findOne({ email });
         if (!admin) return res.status(404).json({ message: 'Admin not found' });
 
         admin.password = newPassword;
