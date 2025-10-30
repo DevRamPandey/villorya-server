@@ -1,5 +1,3 @@
-
-const connectDB = require('../config/database');
 const User = require('../models/user');
 const generateToken = require('../utils/genrateToken');
 
@@ -115,7 +113,6 @@ exports.verifyOtp = async (req, res, next) => {
         phone: user.phone,
         email: user.email,
         fullName: user.fullName,
-        role: user.role,
       },
     });
   } catch (err) {
