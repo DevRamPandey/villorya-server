@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const adminCtrl = require('../controllers/adminController');
-const { authMiddleware, adminOnly } = require('../middleware/auth');
-
-router.use(authMiddleware, adminOnly);
+const protect = require('../middleware/authMiddleware');
+router.use(protect.protect, protect.protect);
 
 router.get('/users', adminCtrl.listUsers);
 router.post('/block/:userId', adminCtrl.blockUser);
