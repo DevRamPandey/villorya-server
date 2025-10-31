@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 
 // Auth Route
 app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/admin', authRoutes);
+app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/dashboard', dashboardRoutes);
 app.use('/api/v1/leads', leadRoutes);
 app.use('/api/v1/package-suppliers', packageSupplierRoutes);
