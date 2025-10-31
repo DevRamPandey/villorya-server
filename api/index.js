@@ -8,6 +8,7 @@ const path = require('path');
 const errorMiddleware = require("../middleware/errorMiddleware");
 const connectDB = require('../config/database');
 const authRoutes = require("../routes/authRoutes");
+const adminRoutes = require("../routes/adminRoutes");
 const dashboardRoutes = require("../routes/dashboardRoutes");
 const leadRoutes = require("../routes/leadsRoutes");
 const blogRoutes = require("../routes/blogsRoutes");
@@ -42,6 +43,7 @@ app.get('/', (req, res) => {
 
 // Auth Route
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/admin', authRoutes);
 app.use('/api/v1/dashboard', dashboardRoutes);
 app.use('/api/v1/leads', leadRoutes);
 app.use('/api/v1/package-suppliers', packageSupplierRoutes);
